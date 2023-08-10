@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2023 Birger Schacht <birger@rantanplan.org>
+# SPDX-License-Identifier: MIT
+
+[package]
+name = "marsrover"
+version = "0.1.0-alpha.1"
+edition = "2021"
+authors = ["Birger Schacht <birger@rantanplan.org>"]
+license = "MIT"
+description = "Drive a rover across mars surface without falling into a ditch!"
+repository = "https://github.com/b1rger/marsrover"
+keywords = ["cli", "game", "console"]
+categories = ["command-line-utilities", "games"]
+
+[dependencies]
+crossterm = "0.27.0"
+rand = "0.8.5"
+serde = { version = "1.0.183", features = ["derive"] }
+toml = "0.7.6"
+xdg = "2.5.2"

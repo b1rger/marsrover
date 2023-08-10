@@ -1,0 +1,15 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: typelerate
+Upstream-Contact: Birger Schacht <birger@rantanplan.org>
+
+Files: Cargo.lock
+Copyright: 2023 Birger Schacht <birger@rantanplan.org>
+License: MIT
+
+Files: data/*
+Copyright: 2023 Birger Schacht <birger@rantanplan.org>
+License: CC0-1.0
+
+Files: CHANGELOG.md
+Copyright: 2023 Birger Schacht <birger@rantanplan.org>
+License: CC0-1.0
