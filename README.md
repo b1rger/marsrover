@@ -4,11 +4,11 @@ SPDX-License-Identifier: MIT
 -->
 <div align="center" markdown="1">
 
-# mars-rover
+# marsrover
 
 </div>
 
-`mars-rover` is reimplementation of the venerable and well-known game
+`marsrover` is a reimplementation of the venerable and well-known game
 [moon-buggy](https://github.com/seehuhn/moon-buggy). The idea of the game is
 that you drive a small vehicle over a surface and you have to cope with
 obstacles, first there are small ditches you have to jump over (using `Space`),
