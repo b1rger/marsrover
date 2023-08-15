@@ -16,8 +16,8 @@ use bullet::Bullet;
 use ditch::Ditch;
 
 pub struct World {
-    cols: u16,
-    rows: u16,
+    pub cols: u16,
+    pub rows: u16,
     pub buggy: Buggy,
     pub bullets: Vec<Bullet>,
     pub aliens: Vec<Alien>,
@@ -89,34 +89,6 @@ impl World {
                 }
             }
         }
-    }
-
-    pub fn to_string(&self) -> String {
-        let ditchindices: Vec<u16> = self.ditches.iter().map(|ditch| ditch.col).collect();
-        let gndstr1: String = (0..self.cols as usize)
-            .enumerate()
-            .map(|(i, _c)| {
-                if ditchindices.contains(&(i as u16)) {
-                    ' '
-                } else {
-                    '#'
-                }
-            })
-            .collect();
-
-        let alienindices: Vec<u16> = self.aliens.iter().map(|alien| alien.col).collect();
-        let gndstr2: String = (0..self.cols as usize)
-            .enumerate()
-            .map(|(i, _c)| {
-                if alienindices.contains(&(i as u16)) {
-                    'o'
-                } else {
-                    ' '
-                }
-            })
-            .collect();
-
-        format!("{}\n{}", gndstr1, gndstr2)
     }
 
     pub fn reset(&mut self) {

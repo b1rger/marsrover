@@ -59,10 +59,6 @@ fn main() -> io::Result<()> {
             ctx.config.context_color,
         )?;
 
-        /* draw the ground below */
-        let belowground = vec!['#'; cols as usize].iter().cloned().collect::<String>();
-        draw(&stdout, 0, rows - 2, belowground, ctx.config.ground_color)?;
-
         /* calculate actions */
         if ctx.world.buggy.moving() {
             if ctx
@@ -92,27 +88,17 @@ fn main() -> io::Result<()> {
             }
         }
 
-        /* draw the ground */
-        let worldstr: String = ctx.world.to_string();
-        for (index, line) in worldstr.lines().enumerate() {
-            draw(
-                &stdout,
-                0,
-                rows - 3 - index as u16,
-                line.to_string(),
-                ctx.config.ground_color,
-            )?;
-        }
-
-        /* draw bullets */
-        for bullet in &ctx.world.bullets {
-            draw(
-                &stdout,
-                bullet.col,
-                bullet.row,
-                "-".to_string(),
-                ctx.config.bullet_color,
-            )?;
+        for (row, line) in ctx.worldtolines().iter().enumerate() {
+            // only draw if there is actually anything to draw
+            if line.chars().any(|c| c != ' ') {
+                draw(
+                    &stdout,
+                    0,
+                    row as u16,
+                    line.to_string(),
+                    config::Color::White,
+                )?;
+            }
         }
 
         /* draw the buggy */
