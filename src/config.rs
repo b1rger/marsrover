@@ -68,6 +68,7 @@ pub struct Config {
     pub context_color: Color,
     pub ground_color: Color,
     pub buggy_color: Color,
+    pub alien_color: Color,
     pub bullet_color: Color,
     pub background_color: Color,
     pub levels: Vec<Level>,
@@ -96,6 +97,7 @@ impl Default for Config {
             ground_color: Color::DarkGreen,
             buggy_color: Color::DarkBlue,
             bullet_color: Color::DarkRed,
+            alien_color: Color::DarkMagenta,
             background_color: Color::Grey,
             levels: vec![l0, l1, l2, l3],
         }

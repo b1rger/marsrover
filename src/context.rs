@@ -77,7 +77,7 @@ impl Context {
             if (alien.col as usize) < cols && (alien.row as usize) < rows {
                 worldlines[alien.row as usize][alien.col as usize] = 'o'
                     .to_string()
-                    .with(self.config.ground_color.into())
+                    .with(self.config.alien_color.into())
                     .to_string();
             }
         }
