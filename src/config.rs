@@ -33,6 +33,7 @@ pub struct Level {
     pub prob_ditch_two: f64,
     pub prob_ditch_three: f64,
     pub prob_alien: f64,
+    pub prob_alien_jumping: f64,
     pub points: u16,
 }
 
@@ -44,6 +45,7 @@ impl Default for Level {
             prob_ditch_two: 0.0,
             prob_ditch_three: 0.0,
             prob_alien: 0.0,
+            prob_alien_jumping: 0.0,
             points: 100,
         }
     }
@@ -57,6 +59,7 @@ impl Level {
             prob_ditch_two: rng.gen_range(0.0..0.6),
             prob_ditch_three: rng.gen_range(0.0..0.7),
             prob_alien: rng.gen_range(0.0..0.8),
+            prob_alien_jumping: rng.gen_range(0.0..0.9),
             points: rng.gen_range(20..60),
         }
     }
@@ -69,6 +72,7 @@ pub struct Config {
     pub ground_color: Color,
     pub buggy_color: Color,
     pub alien_color: Color,
+    pub alien_jumping_color: Color,
     pub bullet_color: Color,
     pub background_color: Color,
     pub levels: Vec<Level>,
@@ -92,14 +96,22 @@ impl Default for Config {
             prob_alien: 0.2,
             ..Default::default()
         };
+        let l4 = Level {
+            prob_ditch_two: 0.2,
+            prob_ditch_three: 0.2,
+            prob_alien: 0.2,
+            prob_alien_jumping: 0.2,
+            ..Default::default()
+        };
         Config {
             context_color: Color::DarkYellow,
             ground_color: Color::DarkGreen,
             buggy_color: Color::DarkBlue,
             bullet_color: Color::DarkRed,
             alien_color: Color::DarkMagenta,
+            alien_jumping_color: Color::DarkCyan,
             background_color: Color::Grey,
-            levels: vec![l0, l1, l2, l3],
+            levels: vec![l0, l1, l2, l3, l4],
         }
     }
 }

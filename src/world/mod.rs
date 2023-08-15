@@ -66,6 +66,7 @@ impl World {
             self.ditches.iter_mut().for_each(|hole| hole.col -= 1);
             self.ditches.retain(|hole| hole.col > 0);
             self.aliens.iter_mut().for_each(|alien| alien.col -= 1);
+            self.aliens.iter_mut().for_each(|alien| alien.jump());
             self.aliens.retain(|alien| alien.col > 0);
 
             let mut rng = rand::thread_rng();
@@ -85,6 +86,8 @@ impl World {
                         self.ditches.push(Ditch::new(cols + 2, 0));
                     } else if rng.gen_bool(level.prob_alien) {
                         self.aliens.push(Alien::new(cols, rows - 4));
+                    } else if rng.gen_bool(level.prob_alien_jumping) {
+                        self.aliens.push(Alien::jumping(cols, rows - 4));
                     }
                 }
             }
