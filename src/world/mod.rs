@@ -54,9 +54,10 @@ impl World {
             if let Some(pos) = self
                 .monsters
                 .iter()
-                .position(|monster| monster.col == bullet.col && monster.row == bullet.row)
+                .position(|monster| (monster.col == bullet.col || monster.col+1 == bullet.col) && monster.row == bullet.row)
             {
-                bulletremovals.push(self.monsters.remove(pos).col)
+                self.monsters.remove(pos);
+                bulletremovals.push(bullet.col);
             }
         }
         self.bullets
