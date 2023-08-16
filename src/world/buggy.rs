@@ -26,7 +26,7 @@ enum BuggyState {
     Run,
     Jump(u32),
     Crash(u32),
-    Alien(u32),
+    Monster(u32),
 }
 
 #[derive(Clone, Copy)]
@@ -75,9 +75,9 @@ impl Buggy {
                 self.state = BuggyState::Run
             }
         }
-        if let BuggyState::Alien(x) = self.state {
+        if let BuggyState::Monster(x) = self.state {
             if x < 32 {
-                self.state = BuggyState::Alien(x + 1)
+                self.state = BuggyState::Monster(x + 1)
             } else {
                 self.state = BuggyState::Run
             }
@@ -100,7 +100,7 @@ impl Buggy {
     }
 
     pub fn rebooting(&mut self) -> bool {
-        BuggyState::Crash(32) == self.state || BuggyState::Alien(32) == self.state
+        BuggyState::Crash(32) == self.state || BuggyState::Monster(32) == self.state
     }
 
     pub fn jump(&mut self) {
@@ -116,8 +116,8 @@ impl Buggy {
         self.lives -= 1;
     }
 
-    pub fn alienate(&mut self) {
-        self.state = BuggyState::Alien(0);
+    pub fn monstercrash(&mut self) {
+        self.state = BuggyState::Monster(0);
         self.lives -= 1;
     }
 
@@ -167,7 +167,7 @@ impl From<Buggy> for String {
                     xwidth = 6 as usize
                 ),
             },
-            BuggyState::Alien(x) => match x {
+            BuggyState::Monster(x) => match x {
                 0..=2 => format!("(_) mm0(_)"),
                 3..=5 => format!("(o)/mm0(o)?"),
                 6..=8 => format!(".o)_mm0(o.??"),

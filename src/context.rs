@@ -73,21 +73,21 @@ impl Context {
                 worldlines[rows - 3][ditch.col as usize] = ' '.to_string();
             }
         }
-        let aliens = self
+        let monsters = self
             .world
-            .aliens
+            .monsters
             .iter()
-            .filter(|alien| (alien.col as usize) < cols && (alien.row as usize) < rows);
-        for alien in aliens {
-            if alien.jumping.is_some() {
-                worldlines[alien.row as usize][alien.col as usize] = 'o'
+            .filter(|monster| (monster.col as usize) < cols && (monster.row as usize) < rows);
+        for monster in monsters {
+            if monster.jumping.is_some() {
+                worldlines[monster.row as usize][monster.col as usize] = 'o'
                     .to_string()
-                    .with(self.config.alien_jumping_color.into())
+                    .with(self.config.monster_jumping_color.into())
                     .to_string();
             } else {
-                worldlines[alien.row as usize][alien.col as usize] = 'o'
+                worldlines[monster.row as usize][monster.col as usize] = 'o'
                     .to_string()
-                    .with(self.config.alien_color.into())
+                    .with(self.config.monster_color.into())
                     .to_string();
             }
         }

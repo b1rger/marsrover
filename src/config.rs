@@ -32,8 +32,8 @@ pub struct Level {
     pub prob_ditch_one: f64,
     pub prob_ditch_two: f64,
     pub prob_ditch_three: f64,
-    pub prob_alien: f64,
-    pub prob_alien_jumping: f64,
+    pub prob_monster: f64,
+    pub prob_monster_jumping: f64,
     pub points: u16,
 }
 
@@ -44,8 +44,8 @@ impl Default for Level {
             prob_ditch_one: 0.2,
             prob_ditch_two: 0.0,
             prob_ditch_three: 0.0,
-            prob_alien: 0.0,
-            prob_alien_jumping: 0.0,
+            prob_monster: 0.0,
+            prob_monster_jumping: 0.0,
             points: 100,
         }
     }
@@ -58,8 +58,8 @@ impl Level {
             prob_ditch_one: rng.gen_range(0.0..0.5),
             prob_ditch_two: rng.gen_range(0.0..0.6),
             prob_ditch_three: rng.gen_range(0.0..0.7),
-            prob_alien: rng.gen_range(0.0..0.8),
-            prob_alien_jumping: rng.gen_range(0.0..0.9),
+            prob_monster: rng.gen_range(0.0..0.8),
+            prob_monster_jumping: rng.gen_range(0.0..0.9),
             points: rng.gen_range(20..60),
         }
     }
@@ -71,8 +71,8 @@ pub struct Config {
     pub context_color: Color,
     pub ground_color: Color,
     pub buggy_color: Color,
-    pub alien_color: Color,
-    pub alien_jumping_color: Color,
+    pub monster_color: Color,
+    pub monster_jumping_color: Color,
     pub bullet_color: Color,
     pub background_color: Color,
     pub levels: Vec<Level>,
@@ -93,14 +93,14 @@ impl Default for Config {
         let l3 = Level {
             prob_ditch_two: 0.2,
             prob_ditch_three: 0.2,
-            prob_alien: 0.2,
+            prob_monster: 0.2,
             ..Default::default()
         };
         let l4 = Level {
             prob_ditch_two: 0.2,
             prob_ditch_three: 0.2,
-            prob_alien: 0.2,
-            prob_alien_jumping: 0.2,
+            prob_monster: 0.2,
+            prob_monster_jumping: 0.2,
             ..Default::default()
         };
         Config {
@@ -108,8 +108,8 @@ impl Default for Config {
             ground_color: Color::DarkGreen,
             buggy_color: Color::DarkBlue,
             bullet_color: Color::DarkRed,
-            alien_color: Color::DarkMagenta,
-            alien_jumping_color: Color::DarkCyan,
+            monster_color: Color::DarkMagenta,
+            monster_jumping_color: Color::DarkCyan,
             background_color: Color::Grey,
             levels: vec![l0, l1, l2, l3, l4],
         }

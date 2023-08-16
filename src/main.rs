@@ -80,11 +80,11 @@ fn main() -> io::Result<()> {
             }
             if ctx
                 .world
-                .aliens
+                .monsters
                 .iter()
-                .any(|alien| alien.col == ctx.world.buggy.col + 5)
+                .any(|monster| monster.col == ctx.world.buggy.col + 5)
             {
-                ctx.world.buggy.alienate();
+                ctx.world.buggy.monstercrash();
             }
         }
 

@@ -4,13 +4,13 @@
 
 use rand::Rng;
 
-mod alien;
+mod monster;
 mod buggy;
 mod bullet;
 mod ditch;
 
 use crate::config;
-use alien::Alien;
+use monster::Monster;
 use buggy::Buggy;
 use bullet::Bullet;
 use ditch::Ditch;
@@ -20,7 +20,7 @@ pub struct World {
     pub rows: u16,
     pub buggy: Buggy,
     pub bullets: Vec<Bullet>,
-    pub aliens: Vec<Alien>,
+    pub monsters: Vec<Monster>,
     pub ditches: Vec<Ditch>,
 }
 
@@ -31,7 +31,7 @@ impl Default for World {
             rows: 0,
             buggy: Buggy::default(),
             bullets: vec![],
-            aliens: vec![],
+            monsters: vec![],
             ditches: vec![],
         }
     }
@@ -52,11 +52,11 @@ impl World {
         let mut bulletremovals: Vec<u16> = vec![];
         for bullet in &self.bullets {
             if let Some(pos) = self
-                .aliens
+                .monsters
                 .iter()
-                .position(|alien| alien.col == bullet.col && alien.row == bullet.row)
+                .position(|monster| monster.col == bullet.col && monster.row == bullet.row)
             {
-                bulletremovals.push(self.aliens.remove(pos).col)
+                bulletremovals.push(self.monsters.remove(pos).col)
             }
         }
         self.bullets
@@ -65,13 +65,13 @@ impl World {
         if self.buggy.moving() {
             self.ditches.iter_mut().for_each(|hole| hole.col -= 1);
             self.ditches.retain(|hole| hole.col > 0);
-            self.aliens.iter_mut().for_each(|alien| alien.col -= 1);
-            self.aliens.iter_mut().for_each(|alien| alien.jump());
-            self.aliens.retain(|alien| alien.col > 0);
+            self.monsters.iter_mut().for_each(|monster| monster.col -= 1);
+            self.monsters.iter_mut().for_each(|monster| monster.jump());
+            self.monsters.retain(|monster| monster.col > 0);
 
             let mut rng = rand::thread_rng();
             let range = cols - 10..cols;
-            if self.aliens.iter().all(|alien| !range.contains(&alien.col))
+            if self.monsters.iter().all(|monster| !range.contains(&monster.col))
                 && self.ditches.iter().all(|hole| !range.contains(&hole.col))
             {
                 if rng.gen_bool(0.5) {
@@ -84,10 +84,10 @@ impl World {
                         self.ditches.push(Ditch::new(cols, 0));
                         self.ditches.push(Ditch::new(cols + 1, 0));
                         self.ditches.push(Ditch::new(cols + 2, 0));
-                    } else if rng.gen_bool(level.prob_alien) {
-                        self.aliens.push(Alien::new(cols, rows - 4));
-                    } else if rng.gen_bool(level.prob_alien_jumping) {
-                        self.aliens.push(Alien::jumping(cols, rows - 4));
+                    } else if rng.gen_bool(level.prob_monster) {
+                        self.monsters.push(Monster::new(cols, rows - 4));
+                    } else if rng.gen_bool(level.prob_monster_jumping) {
+                        self.monsters.push(Monster::jumping(cols, rows - 4));
                     }
                 }
             }
@@ -96,6 +96,6 @@ impl World {
 
     pub fn reset(&mut self) {
         self.ditches.clear();
-        self.aliens.clear();
+        self.monsters.clear();
     }
 }

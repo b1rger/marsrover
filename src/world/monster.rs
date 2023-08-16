@@ -2,22 +2,22 @@
 //
 // SPDX-License-Identifier: MIT
 
-pub struct Alien {
+pub struct Monster {
     pub col: u16,
     pub row: u16,
     pub jumping: Option<i32>,
 }
 
-impl Alien {
+impl Monster {
     pub fn new(col: u16, row: u16) -> Self {
-        Alien {
+        Monster {
             col: col,
             row: row,
             jumping: None,
         }
     }
     pub fn jumping(col: u16, row: u16) -> Self {
-        Alien {
+        Monster {
             col: col,
             row: row,
             jumping: Some(0),
@@ -40,8 +40,8 @@ impl Alien {
     }
 }
 
-impl From<Alien> for String {
-    fn from(_alien: Alien) -> String {
+impl From<Monster> for String {
+    fn from(_monster: Monster) -> String {
         "o".to_string()
     }
 }
