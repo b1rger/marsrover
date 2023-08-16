@@ -4,16 +4,16 @@
 
 use rand::Rng;
 
-mod monster;
 mod buggy;
 mod bullet;
 mod ditch;
+mod monster;
 
 use crate::config;
-use monster::Monster;
 use buggy::Buggy;
 use bullet::Bullet;
 use ditch::Ditch;
+use monster::Monster;
 
 pub struct World {
     pub cols: u16,
@@ -51,11 +51,10 @@ impl World {
 
         let mut bulletremovals: Vec<u16> = vec![];
         for bullet in &self.bullets {
-            if let Some(pos) = self
-                .monsters
-                .iter()
-                .position(|monster| (monster.col == bullet.col || monster.col+1 == bullet.col) && monster.row == bullet.row)
-            {
+            if let Some(pos) = self.monsters.iter().position(|monster| {
+                (monster.col == bullet.col || monster.col + 1 == bullet.col)
+                    && monster.row == bullet.row
+            }) {
                 self.monsters.remove(pos);
                 bulletremovals.push(bullet.col);
             }
@@ -66,13 +65,18 @@ impl World {
         if self.buggy.moving() {
             self.ditches.iter_mut().for_each(|hole| hole.col -= 1);
             self.ditches.retain(|hole| hole.col > 0);
-            self.monsters.iter_mut().for_each(|monster| monster.col -= 1);
+            self.monsters
+                .iter_mut()
+                .for_each(|monster| monster.col -= 1);
             self.monsters.iter_mut().for_each(|monster| monster.jump());
             self.monsters.retain(|monster| monster.col > 0);
 
             let mut rng = rand::thread_rng();
             let range = cols - 10..cols;
-            if self.monsters.iter().all(|monster| !range.contains(&monster.col))
+            if self
+                .monsters
+                .iter()
+                .all(|monster| !range.contains(&monster.col))
                 && self.ditches.iter().all(|hole| !range.contains(&hole.col))
             {
                 if rng.gen_bool(0.5) {
