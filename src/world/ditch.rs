@@ -12,9 +12,3 @@ impl Ditch {
         Ditch { col: col, row: row }
     }
 }
-
-impl From<Ditch> for String {
-    fn from(_ditch: Ditch) -> String {
-        " ".to_string()
-    }
-}

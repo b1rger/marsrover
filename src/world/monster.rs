@@ -39,9 +39,3 @@ impl Monster {
         }
     }
 }
-
-impl From<Monster> for String {
-    fn from(_monster: Monster) -> String {
-        "o".to_string()
-    }
-}
