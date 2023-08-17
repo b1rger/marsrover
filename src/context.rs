@@ -58,13 +58,13 @@ impl Context {
 
         worldlines[rows - 2] = vec![
             '#'.to_string()
-                .with(self.config.ground_color.into())
+                .with(self.config.color_ground.into())
                 .to_string();
             cols
         ];
         worldlines[rows - 3] = vec![
             '#'.to_string()
-                .with(self.config.ground_color.into())
+                .with(self.config.color_ground.into())
                 .to_string();
             cols
         ];
@@ -82,12 +82,12 @@ impl Context {
             if monster.jumping.is_some() {
                 worldlines[monster.row as usize][monster.col as usize] = 'o'
                     .to_string()
-                    .with(self.config.monster_jumping_color.into())
+                    .with(self.config.color_monster_jumping.into())
                     .to_string();
             } else {
                 worldlines[monster.row as usize][monster.col as usize] = 'o'
                     .to_string()
-                    .with(self.config.monster_color.into())
+                    .with(self.config.color_monster.into())
                     .to_string();
             }
         }
@@ -95,7 +95,7 @@ impl Context {
             if (bullet.col as usize) < cols && (bullet.row as usize) < rows {
                 worldlines[bullet.row as usize][bullet.col as usize] = '-'
                     .to_string()
-                    .with(self.config.bullet_color.into())
+                    .with(self.config.color_bullet.into())
                     .to_string();
             }
         }

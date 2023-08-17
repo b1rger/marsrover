@@ -56,7 +56,7 @@ fn main() -> io::Result<()> {
             0,
             rows - 1,
             format!("{}", ctx),
-            ctx.config.context_color,
+            ctx.config.color_context,
         )?;
 
         /* calculate actions */
@@ -109,7 +109,7 @@ fn main() -> io::Result<()> {
                 ctx.world.buggy.col,
                 ctx.world.buggy.row() - index as u16,
                 line.to_string(),
-                ctx.config.buggy_color,
+                ctx.config.color_buggy,
             )?;
         }
         ctx.world.buggy.tick();

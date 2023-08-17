@@ -68,13 +68,13 @@ impl Level {
 #[derive(Deserialize, Serialize, Debug)]
 #[serde(default)]
 pub struct Config {
-    pub context_color: Color,
-    pub ground_color: Color,
-    pub buggy_color: Color,
-    pub monster_color: Color,
-    pub monster_jumping_color: Color,
-    pub bullet_color: Color,
-    pub background_color: Color,
+    pub color_context: Color,
+    pub color_ground: Color,
+    pub color_buggy: Color,
+    pub color_monster: Color,
+    pub color_monster_jumping: Color,
+    pub color_bullet: Color,
+    pub color_background: Color,
     pub levels: Vec<Level>,
 }
 
@@ -104,13 +104,13 @@ impl Default for Config {
             ..Default::default()
         };
         Config {
-            context_color: Color::DarkYellow,
-            ground_color: Color::DarkGreen,
-            buggy_color: Color::DarkBlue,
-            bullet_color: Color::DarkRed,
-            monster_color: Color::DarkMagenta,
-            monster_jumping_color: Color::DarkCyan,
-            background_color: Color::Grey,
+            color_context: Color::DarkYellow,
+            color_ground: Color::DarkGreen,
+            color_buggy: Color::DarkBlue,
+            color_bullet: Color::DarkRed,
+            color_monster: Color::DarkMagenta,
+            color_monster_jumping: Color::DarkCyan,
+            color_background: Color::Grey,
             levels: vec![l0, l1, l2, l3, l4],
         }
     }
