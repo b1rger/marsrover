@@ -57,13 +57,17 @@ impl Context {
         let mut worldlines = vec![vec![' '.to_string(); cols]; rows];
 
         worldlines[rows - 2] = vec![
-            '#'.to_string()
+            self.config
+                .char_ground
+                .to_string()
                 .with(self.config.color_ground.into())
                 .to_string();
             cols
         ];
         worldlines[rows - 3] = vec![
-            '#'.to_string()
+            self.config
+                .char_ground
+                .to_string()
                 .with(self.config.color_ground.into())
                 .to_string();
             cols
@@ -80,12 +84,16 @@ impl Context {
             .filter(|monster| (monster.col as usize) < cols && (monster.row as usize) < rows);
         for monster in monsters {
             if monster.jumping.is_some() {
-                worldlines[monster.row as usize][monster.col as usize] = 'o'
+                worldlines[monster.row as usize][monster.col as usize] = self
+                    .config
+                    .char_monster_jumping
                     .to_string()
                     .with(self.config.color_monster_jumping.into())
                     .to_string();
             } else {
-                worldlines[monster.row as usize][monster.col as usize] = 'o'
+                worldlines[monster.row as usize][monster.col as usize] = self
+                    .config
+                    .char_monster
                     .to_string()
                     .with(self.config.color_monster.into())
                     .to_string();
@@ -93,7 +101,9 @@ impl Context {
         }
         for bullet in &self.world.bullets {
             if (bullet.col as usize) < cols && (bullet.row as usize) < rows {
-                worldlines[bullet.row as usize][bullet.col as usize] = '-'
+                worldlines[bullet.row as usize][bullet.col as usize] = self
+                    .config
+                    .char_bullet
                     .to_string()
                     .with(self.config.color_bullet.into())
                     .to_string();

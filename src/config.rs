@@ -70,10 +70,14 @@ impl Level {
 pub struct Config {
     pub color_context: Color,
     pub color_ground: Color,
+    pub char_ground: char,
     pub color_buggy: Color,
     pub color_monster: Color,
+    pub char_monster: char,
     pub color_monster_jumping: Color,
+    pub char_monster_jumping: char,
     pub color_bullet: Color,
+    pub char_bullet: char,
     pub color_background: Color,
     pub levels: Vec<Level>,
 }
@@ -106,10 +110,14 @@ impl Default for Config {
         Config {
             color_context: Color::DarkYellow,
             color_ground: Color::DarkGreen,
+            char_ground: '#',
             color_buggy: Color::DarkBlue,
             color_bullet: Color::DarkRed,
+            char_bullet: '-',
             color_monster: Color::DarkMagenta,
+            char_monster: 'o',
             color_monster_jumping: Color::DarkCyan,
+            char_monster_jumping: 'O',
             color_background: Color::Grey,
             levels: vec![l0, l1, l2, l3, l4],
         }
