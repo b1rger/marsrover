@@ -2,25 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-#[derive(Clone, Copy)]
-enum Tire {
-    P1,
-    P2,
-    P3,
-    P4,
-}
-
-impl Tire {
-    pub fn right(&mut self) {
-        *self = match *self {
-            Tire::P1 => Tire::P2,
-            Tire::P2 => Tire::P3,
-            Tire::P3 => Tire::P4,
-            Tire::P4 => Tire::P1,
-        };
-    }
-}
-
 #[derive(PartialEq, Clone, Copy)]
 enum BuggyState {
     Run,
@@ -33,11 +14,10 @@ enum BuggyState {
 pub struct Buggy {
     pub col: u16,
     pub row: u16,
-    tire1: Tire,
-    tire2: Tire,
     state: BuggyState,
     pub lives: u16,
     pub points: u16,
+    pub tick: usize,
 }
 
 impl Default for Buggy {
@@ -45,11 +25,10 @@ impl Default for Buggy {
         Buggy {
             col: 20,
             row: 0,
-            tire1: Tire::P1,
-            tire2: Tire::P1,
             state: BuggyState::Run,
             lives: 3,
             points: 0,
+            tick: 0,
         }
     }
 }
@@ -61,6 +40,8 @@ impl Buggy {
     }
 
     pub fn tick(&mut self) {
+        self.tick += 1;
+        self.tick %= 16;
         if let BuggyState::Jump(x) = self.state {
             if x <= 8 {
                 self.state = BuggyState::Jump(x + 1);
@@ -82,14 +63,6 @@ impl Buggy {
                 self.state = BuggyState::Run
             }
         }
-
-        self.tire1.right();
-        self.tire2.right();
-    }
-
-    pub fn right(&mut self) {
-        self.tire1.right();
-        self.tire2.right();
     }
 
     pub fn moving(&mut self) -> bool {
@@ -145,12 +118,23 @@ impl Buggy {
 
 impl From<Buggy> for String {
     fn from(buggy: Buggy) -> String {
-        let body: String = " mm0".to_string();
-        let tire1: String = buggy.tire1.into();
-        let tire2: String = buggy.tire2.into();
+        let body: &str = " mm0";
+        let tire: &str = match buggy.tick % 4 {
+            0 => "(|)",
+            1 => "(/)",
+            2 => "(-)",
+            _ => "(\\)",
+        };
+        let exhaust: &str = match buggy.tick {
+            0 => "   .",
+            1 => "  o.",
+            2 => " oo ",
+            3 => "0o  ",
+            _ => "    ",
+        };
         match buggy.state {
-            BuggyState::Run => format!("{body:width$}\n{tire1}-{tire2}", width = 10),
-            BuggyState::Jump(_) => format!("{body:width$}\n{tire1}-{tire2:width$}", width = 10),
+            BuggyState::Run => format!("{exhaust}{body:width$}\n    {tire}-{tire}", width = 10),
+            BuggyState::Jump(_) => format!("{exhaust}{body:width$}\n    {tire}-{tire:width$}", width = 10),
             BuggyState::Crash(x) => match x {
                 0..=5 => format!(
                     "{:width$}\ncnOMMnb{:>xwidth$}",
@@ -173,17 +157,6 @@ impl From<Buggy> for String {
                 6..=8 => format!(".o)_mm0(o.??"),
                 _ => format!(".o).mm0(o.???"),
             },
-        }
-    }
-}
-
-impl From<Tire> for String {
-    fn from(t: Tire) -> String {
-        match t {
-            Tire::P1 => "(|)".to_string(),
-            Tire::P2 => "(/)".to_string(),
-            Tire::P3 => "(-)".to_string(),
-            Tire::P4 => "(\\)".to_string(),
         }
     }
 }
