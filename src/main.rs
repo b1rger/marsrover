@@ -123,6 +123,7 @@ fn main() -> io::Result<()> {
             if ctx.level < ctx.config.levels.len() - 1 {
                 ctx.level += 1;
                 ctx.addmessage(format!("Level up! You're now on level {}", ctx.level), 40);
+                ctx.addmessage(ctx.config.levels[ctx.level].desc.to_string(), 40);
             } else {
                 ctx.config.levels.push(config::Level::random());
             }
@@ -130,7 +131,7 @@ fn main() -> io::Result<()> {
 
         // print messages, if any
         ctx.messages.retain(|message| message.tick > 0);
-        for (index, mut message) in ctx.messages.iter_mut().enumerate() {
+        for (index, mut message) in ctx.messages.iter_mut().rev().enumerate() {
             message.tick -= 1;
             let pos: u16 = rows - 20 - index as u16;
             if message.tick > 0 {

@@ -27,7 +27,7 @@ pub enum Color {
     Grey,
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone, Copy)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct Level {
     pub prob_ditch_one: f64,
     pub prob_ditch_two: f64,
@@ -35,6 +35,7 @@ pub struct Level {
     pub prob_monster: f64,
     pub prob_monster_jumping: f64,
     pub points: u16,
+    pub desc: String,
 }
 
 impl Default for Level {
@@ -47,6 +48,7 @@ impl Default for Level {
             prob_monster: 0.0,
             prob_monster_jumping: 0.0,
             points: 100,
+            desc: String::default(),
         }
     }
 }
@@ -61,6 +63,7 @@ impl Level {
             prob_monster: rng.gen_range(0.0..0.8),
             prob_monster_jumping: rng.gen_range(0.0..0.9),
             points: rng.gen_range(20..60),
+            desc: String::from("Wohoo! This level is completely random!"),
         }
     }
 }
@@ -87,17 +90,20 @@ impl Default for Config {
         let l0 = Level::default();
         let l1 = Level {
             prob_ditch_two: 0.2,
+            desc: String::from("In level one the craters are a bit wider!"),
             ..Default::default()
         };
         let l2 = Level {
             prob_ditch_two: 0.2,
             prob_ditch_three: 0.2,
+            desc: String::from("In level two the craters can be three wide!"),
             ..Default::default()
         };
         let l3 = Level {
             prob_ditch_two: 0.2,
             prob_ditch_three: 0.2,
             prob_monster: 0.2,
+            desc: String::from("Oh now! There might be monsters. Shoot them!"),
             ..Default::default()
         };
         let l4 = Level {
@@ -105,6 +111,7 @@ impl Default for Config {
             prob_ditch_three: 0.2,
             prob_monster: 0.2,
             prob_monster_jumping: 0.2,
+            desc: String::from("Some monsters are jumping to evade the bullets!"),
             ..Default::default()
         };
         Config {
