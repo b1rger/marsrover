@@ -4,16 +4,16 @@
 
 use rand::Rng;
 
-mod rover;
 mod bullet;
 mod ditch;
 mod monster;
+mod rover;
 
 use crate::config;
-use rover::Rover;
 use bullet::Bullet;
 use ditch::Ditch;
 use monster::Monster;
+use rover::Rover;
 
 pub struct World {
     pub cols: u16,

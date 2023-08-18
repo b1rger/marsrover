@@ -134,7 +134,10 @@ impl From<Rover> for String {
         };
         match rover.state {
             RoverState::Run => format!("{exhaust}{body:width$}\n    {tire}-{tire}", width = 10),
-            RoverState::Jump(_) => format!("{exhaust}{body:width$}\n    {tire}-{tire:width$}", width = 10),
+            RoverState::Jump(_) => format!(
+                "{exhaust}{body:width$}\n    {tire}-{tire:width$}",
+                width = 10
+            ),
             RoverState::Crash(x) => match x {
                 0..=5 => format!(
                     "{:width$}\ncnOMMnb{:>xwidth$}",
