@@ -60,31 +60,31 @@ fn main() -> io::Result<()> {
         )?;
 
         /* calculate actions */
-        if ctx.world.buggy.moving() {
+        if ctx.world.rover.moving() {
             if ctx
                 .world
                 .ditches
                 .iter()
-                .any(|hole| hole.col == ctx.world.buggy.col)
+                .any(|hole| hole.col == ctx.world.rover.col)
             {
-                ctx.world.buggy.points += 4;
+                ctx.world.rover.points += 4;
             }
             if ctx
                 .world
                 .ditches
                 .iter()
-                .any(|hole| ctx.world.buggy.range().contains(&hole.col))
-                && !ctx.world.buggy.jumping()
+                .any(|hole| ctx.world.rover.range().contains(&hole.col))
+                && !ctx.world.rover.jumping()
             {
-                ctx.world.buggy.crash();
+                ctx.world.rover.crash();
             }
             if ctx
                 .world
                 .monsters
                 .iter()
-                .any(|monster| monster.col == ctx.world.buggy.col + 5)
+                .any(|monster| monster.col == ctx.world.rover.col + 5)
             {
-                ctx.world.buggy.monstercrash();
+                ctx.world.rover.monstercrash();
             }
         }
 
@@ -101,25 +101,25 @@ fn main() -> io::Result<()> {
             }
         }
 
-        /* draw the buggy */
-        let bstr: String = ctx.world.buggy.into();
+        /* draw the rover */
+        let bstr: String = ctx.world.rover.into();
         for (index, line) in bstr.lines().rev().enumerate() {
             draw(
                 &stdout,
-                ctx.world.buggy.col,
-                ctx.world.buggy.row() - index as u16,
+                ctx.world.rover.col,
+                ctx.world.rover.row() - index as u16,
                 line.to_string(),
-                ctx.config.color_buggy,
+                ctx.config.color_rover,
             )?;
         }
-        ctx.world.buggy.tick();
+        ctx.world.rover.tick();
 
         // sum up the points of all levels up to now...
         let points: u16 = ctx.config.levels[0..=ctx.level]
             .iter()
             .map(|x| x.points)
             .sum();
-        if points <= ctx.world.buggy.points {
+        if points <= ctx.world.rover.points {
             if ctx.level < ctx.config.levels.len() - 1 {
                 ctx.level += 1;
                 ctx.addmessage(format!("Level up! You're now on level {}", ctx.level), 40);
@@ -145,14 +145,14 @@ fn main() -> io::Result<()> {
             }
         }
 
-        if ctx.world.buggy.rebooting() {
+        if ctx.world.rover.rebooting() {
             ctx.world.reset();
         }
 
         stdout.flush()?;
     }
 
-    if ctx.world.buggy.points > 0 {
+    if ctx.world.rover.points > 0 {
         let mut scores = scores::Scores::read();
 
         draw(
@@ -204,7 +204,7 @@ fn main() -> io::Result<()> {
         if !name.is_empty() {
             scores
                 .scores
-                .push(scores::Score::new(name, ctx.world.buggy.points));
+                .push(scores::Score::new(name, ctx.world.rover.points));
             scores.write(10);
         }
     }

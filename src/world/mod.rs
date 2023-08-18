@@ -4,13 +4,13 @@
 
 use rand::Rng;
 
-mod buggy;
+mod rover;
 mod bullet;
 mod ditch;
 mod monster;
 
 use crate::config;
-use buggy::Buggy;
+use rover::Rover;
 use bullet::Bullet;
 use ditch::Ditch;
 use monster::Monster;
@@ -18,7 +18,7 @@ use monster::Monster;
 pub struct World {
     pub cols: u16,
     pub rows: u16,
-    pub buggy: Buggy,
+    pub rover: Rover,
     pub bullets: Vec<Bullet>,
     pub monsters: Vec<Monster>,
     pub ditches: Vec<Ditch>,
@@ -29,7 +29,7 @@ impl Default for World {
         World {
             cols: 0,
             rows: 0,
-            buggy: Buggy::default(),
+            rover: Rover::default(),
             bullets: vec![],
             monsters: vec![],
             ditches: vec![],
@@ -40,13 +40,13 @@ impl Default for World {
 impl World {
     pub fn shoot(&mut self) {
         self.bullets
-            .push(Bullet::new(self.buggy.col + 6, self.buggy.row()));
+            .push(Bullet::new(self.rover.col + 6, self.rover.row()));
     }
 
     pub fn update(&mut self, cols: u16, rows: u16, level: &config::Level) {
         self.cols = cols;
         self.rows = rows;
-        self.buggy.update(20, rows - 4);
+        self.rover.update(20, rows - 4);
         self.bullets.iter_mut().for_each(|bullet| bullet.col += 1);
 
         let mut bulletremovals: Vec<u16> = vec![];
@@ -62,7 +62,7 @@ impl World {
         self.bullets
             .retain(|bullet| !bulletremovals.contains(&bullet.col));
 
-        if self.buggy.moving() {
+        if self.rover.moving() {
             self.ditches.iter_mut().for_each(|hole| hole.col -= 1);
             self.ditches.retain(|hole| hole.col > 0);
             self.monsters

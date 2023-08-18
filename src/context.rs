@@ -41,7 +41,7 @@ impl Default for Context {
 
 impl Context {
     pub fn run(&self) -> bool {
-        self.state == State::Run && self.world.buggy.lives > 0
+        self.state == State::Run && self.world.rover.lives > 0
     }
     pub fn quit(&mut self) {
         self.state = State::Quit;
@@ -118,8 +118,8 @@ impl fmt::Display for Context {
         write!(
             f,
             "Lives: {} Points: {}, Level: {}/{}",
-            self.world.buggy.lives,
-            self.world.buggy.points,
+            self.world.rover.lives,
+            self.world.rover.points,
             self.level,
             self.config.levels.len()
         )

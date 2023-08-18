@@ -12,7 +12,7 @@ pub fn events(ctx: &mut context::Context) -> io::Result<()> {
     if poll(Duration::from_millis(100))? {
         if let Event::Key(key) = event::read()? {
             match key.code {
-                KeyCode::Char(' ') => ctx.world.buggy.jump(),
+                KeyCode::Char(' ') => ctx.world.rover.jump(),
                 KeyCode::Char('j') => ctx.world.shoot(),
                 KeyCode::Char('q') => ctx.quit(),
                 _ => (),
