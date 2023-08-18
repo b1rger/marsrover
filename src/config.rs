@@ -125,7 +125,7 @@ impl Default for Config {
             char_monster: 'o',
             color_monster_jumping: Color::DarkCyan,
             char_monster_jumping: 'O',
-            color_background: Color::Grey,
+            color_background: Color::DarkYellow,
             levels: vec![l0, l1, l2, l3, l4],
         }
     }

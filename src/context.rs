@@ -109,6 +109,14 @@ impl Context {
                     .to_string();
             }
         }
+        for bg in &self.world.backgrounds {
+            if (bg.col as usize) < cols && (bg.row as usize) < rows {
+                worldlines[bg.row as usize][bg.col as usize] = bg.chr
+                    .to_string()
+                    .with(self.config.color_background.into())
+                    .to_string();
+            }
+        }
         worldlines.iter().map(|rowvec| rowvec.join("")).collect()
     }
 }

@@ -8,12 +8,14 @@ mod bullet;
 mod ditch;
 mod monster;
 mod rover;
+mod background;
 
 use crate::config;
 use bullet::Bullet;
 use ditch::Ditch;
 use monster::Monster;
 use rover::Rover;
+use background::Background;
 
 pub struct World {
     pub cols: u16,
@@ -22,6 +24,7 @@ pub struct World {
     pub bullets: Vec<Bullet>,
     pub monsters: Vec<Monster>,
     pub ditches: Vec<Ditch>,
+    pub backgrounds: Vec<Background>,
 }
 
 impl Default for World {
@@ -33,6 +36,7 @@ impl Default for World {
             bullets: vec![],
             monsters: vec![],
             ditches: vec![],
+            backgrounds: vec![],
         }
     }
 }
@@ -70,6 +74,10 @@ impl World {
                 .for_each(|monster| monster.col -= 1);
             self.monsters.iter_mut().for_each(|monster| monster.jump());
             self.monsters.retain(|monster| monster.col > 0);
+            if self.rover.tick % 8 == 0 {
+                self.backgrounds.iter_mut().for_each(|background| background.col -= 1);
+            }
+            self.backgrounds.retain(|background| background.col > 0);
 
             let mut rng = rand::thread_rng();
             let range = cols - 10..cols;
@@ -94,6 +102,11 @@ impl World {
                     } else if rng.gen_bool(level.prob_monster_jumping) {
                         self.monsters.push(Monster::jumping(cols, rows - 4));
                     }
+                }
+            }
+            if rng.gen_bool(0.02) {
+                if let Some(x) = Background::new(cols, rows) {
+                    self.backgrounds.push(x);
                 }
             }
         }
