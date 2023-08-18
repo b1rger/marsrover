@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
+extern crate chrono;
 extern crate xdg;
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -28,7 +29,13 @@ impl Score {
 
 impl From<&Score> for String {
     fn from(score: &Score) -> String {
-        format!("{}: {}", score.name, score.points)
+        let datetime: chrono::DateTime<chrono::Local> = score.timestamp.into();
+        format!(
+            "{}\t{}:\t\t{} points",
+            datetime.format("%d/%m/%Y %T"),
+            score.name,
+            score.points
+        )
     }
 }
 

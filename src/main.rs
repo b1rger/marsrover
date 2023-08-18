@@ -37,6 +37,16 @@ fn draw(
 fn main() -> io::Result<()> {
     let mut ctx = Context::default();
 
+    // if user requests the scoreboard using the `-s` switch,
+    // just print that and exit gracefully
+    if let Some(arg) = std::env::args().nth(1) {
+        if arg.eq("-s") {
+            let scores: String = scores::Scores::read().into();
+            println!("Marsrover-Scores\n{}", scores);
+            std::process::exit(0);
+        }
+    }
+
     terminal::enable_raw_mode()?;
     let mut stdout = io::stdout();
 
