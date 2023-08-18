@@ -112,7 +112,7 @@ impl Rover {
     }
 
     pub fn range(&self) -> std::ops::Range<u16> {
-        self.col + 1..self.col + 5
+        self.col + 5..self.col + 10
     }
 }
 
