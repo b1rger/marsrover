@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
-use rand::Rng;
 use rand::seq::SliceRandom;
+use rand::Rng;
 
 pub struct Background {
     pub col: u16,
@@ -18,7 +18,7 @@ impl Background {
         match chars.choose(&mut rng) {
             Some(x) => Some(Background {
                 col: cols,
-                row: rng.gen_range(0..rows-10),
+                row: rng.gen_range(0..rows - 10),
                 chr: *x,
             }),
             _ => None,

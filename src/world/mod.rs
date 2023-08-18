@@ -4,18 +4,18 @@
 
 use rand::Rng;
 
+mod background;
 mod bullet;
 mod ditch;
 mod monster;
 mod rover;
-mod background;
 
 use crate::config;
+use background::Background;
 use bullet::Bullet;
 use ditch::Ditch;
 use monster::Monster;
 use rover::Rover;
-use background::Background;
 
 pub struct World {
     pub cols: u16,
@@ -75,7 +75,9 @@ impl World {
             self.monsters.iter_mut().for_each(|monster| monster.jump());
             self.monsters.retain(|monster| monster.col > 0);
             if self.rover.tick % 8 == 0 {
-                self.backgrounds.iter_mut().for_each(|background| background.col -= 1);
+                self.backgrounds
+                    .iter_mut()
+                    .for_each(|background| background.col -= 1);
             }
             self.backgrounds.retain(|background| background.col > 0);
 
