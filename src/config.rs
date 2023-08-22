@@ -136,7 +136,7 @@ impl Config {
         match xdg::BaseDirectories::with_prefix(env!("CARGO_CRATE_NAME")) {
             Ok(xdg_dirs) => {
                 if let Some(config_path) = xdg_dirs.find_config_file("config.toml") {
-                    let config_content = fs::read_to_string(&config_path).unwrap_or_default();
+                    let config_content = fs::read_to_string(config_path).unwrap_or_default();
                     match toml::from_str(&config_content) {
                         Ok(config) => return config,
                         Err(e) => eprintln!("Could not parse config file: {}", e),

@@ -9,6 +9,6 @@ pub struct Bullet {
 
 impl Bullet {
     pub fn new(col: u16, row: u16) -> Self {
-        Bullet { col: col, row: row }
+        Bullet { col, row }
     }
 }

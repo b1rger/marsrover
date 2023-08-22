@@ -55,7 +55,7 @@ impl Scores {
     pub fn read() -> Scores {
         if let Ok(xdg_dirs) = xdg::BaseDirectories::with_prefix(env!("CARGO_CRATE_NAME")) {
             if let Some(scores_path) = xdg_dirs.find_state_file("scores.toml") {
-                let content = fs::read_to_string(&scores_path).unwrap_or_default();
+                let content = fs::read_to_string(scores_path).unwrap_or_default();
                 match toml::from_str(&content) {
                     Ok(scores) => return scores,
                     Err(e) => eprintln!("Could not parse config file: {}", e),
