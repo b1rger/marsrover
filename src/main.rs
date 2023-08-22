@@ -75,7 +75,7 @@ fn main() -> io::Result<()> {
                 .world
                 .craters
                 .iter()
-                .any(|hole| hole.col == ctx.world.rover.col)
+                .any(|crater| crater.col == ctx.world.rover.col)
             {
                 ctx.world.rover.points += 4;
             }
@@ -83,7 +83,7 @@ fn main() -> io::Result<()> {
                 .world
                 .craters
                 .iter()
-                .any(|hole| ctx.world.rover.range().contains(&hole.col))
+                .any(|crater| ctx.world.rover.range().contains(&crater.col))
                 && !ctx.world.rover.jumping()
             {
                 ctx.world.rover.crash();

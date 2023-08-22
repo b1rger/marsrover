@@ -54,8 +54,8 @@ impl World {
             .retain(|bullet| !bulletremovals.contains(&bullet.col));
 
         if self.rover.moving() {
-            self.craters.iter_mut().for_each(|hole| hole.col -= 1);
-            self.craters.retain(|hole| hole.col > 0);
+            self.craters.iter_mut().for_each(|crater| crater.col -= 1);
+            self.craters.retain(|crater| crater.col > 0);
             self.monsters
                 .iter_mut()
                 .for_each(|monster| monster.col -= 1);
@@ -74,7 +74,10 @@ impl World {
                 .monsters
                 .iter()
                 .all(|monster| !range.contains(&monster.col))
-                && self.craters.iter().all(|hole| !range.contains(&hole.col))
+                && self
+                    .craters
+                    .iter()
+                    .all(|crater| !range.contains(&crater.col))
                 && rng.gen_bool(0.5)
             {
                 if rng.gen_bool(level.prob_crater_one) {
