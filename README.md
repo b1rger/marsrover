@@ -32,7 +32,7 @@ There are a couple of levels predefined in the game, after the last level new
 levels are randomly generated.
 
 If you want to define your own levels, you can do that in the configuration
-files. Per level there are four settings for probabilities of obstacles
+files. Per level there are a couple of settings for probabilities of obstacles
 occuring and a `points` setting that defines how many points the user can get
 in that level (=the game switches to the next level if the user reaches the
 points).
@@ -43,5 +43,6 @@ prob_crater_one = 0.2
 prob_crater_two = 0.0
 prob_crater_three = 0.0
 prob_monster = 0.5
+prob_monster_jumping = 0.3
 points = 100
 ```
