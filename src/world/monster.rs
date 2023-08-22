@@ -11,15 +11,15 @@ pub struct Monster {
 impl Monster {
     pub fn new(col: u16, row: u16) -> Self {
         Monster {
-            col: col,
-            row: row,
+            col,
+            row,
             jumping: None,
         }
     }
     pub fn jumping(col: u16, row: u16) -> Self {
         Monster {
-            col: col,
-            row: row,
+            col,
+            row,
             jumping: Some(0),
         }
     }

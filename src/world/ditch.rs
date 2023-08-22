@@ -9,6 +9,6 @@ pub struct Ditch {
 
 impl Ditch {
     pub fn new(col: u16, row: u16) -> Self {
-        Ditch { col: col, row: row }
+        Ditch { col, row }
     }
 }

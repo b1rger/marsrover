@@ -151,14 +151,14 @@ impl From<Rover> for String {
                     "_",
                     "_",
                     width = 10,
-                    xwidth = 6 as usize
+                    xwidth = 6
                 ),
             },
             RoverState::Monster(x) => match x {
-                0..=2 => format!("(_) mm0(_)"),
-                3..=5 => format!("(o)/mm0(o)?"),
-                6..=8 => format!(".o)_mm0(o.??"),
-                _ => format!(".o).mm0(o.???"),
+                0..=2 => "(_) mm0(_)".to_string(),
+                3..=5 => "(o)/mm0(o)?".to_string(),
+                6..=8 => ".o)_mm0(o.??".to_string(),
+                _ => ".o).mm0(o.???".to_string(),
             },
         }
     }

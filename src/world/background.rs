@@ -15,13 +15,10 @@ impl Background {
     pub fn new(cols: u16, rows: u16) -> Option<Self> {
         let mut rng = rand::thread_rng();
         let chars = vec!['*', '+'];
-        match chars.choose(&mut rng) {
-            Some(x) => Some(Background {
-                col: cols,
-                row: rng.gen_range(0..rows - 10),
-                chr: *x,
-            }),
-            _ => None,
-        }
+        chars.choose(&mut rng).map(|x| Background {
+            col: cols,
+            row: rng.gen_range(0..rows - 10),
+            chr: *x,
+        })
     }
 }

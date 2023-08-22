@@ -17,6 +17,7 @@ use ditch::Ditch;
 use monster::Monster;
 use rover::Rover;
 
+#[derive(Default)]
 pub struct World {
     pub cols: u16,
     pub rows: u16,
@@ -25,20 +26,6 @@ pub struct World {
     pub monsters: Vec<Monster>,
     pub ditches: Vec<Ditch>,
     pub backgrounds: Vec<Background>,
-}
-
-impl Default for World {
-    fn default() -> Self {
-        World {
-            cols: 0,
-            rows: 0,
-            rover: Rover::default(),
-            bullets: vec![],
-            monsters: vec![],
-            ditches: vec![],
-            backgrounds: vec![],
-        }
-    }
 }
 
 impl World {
@@ -88,22 +75,21 @@ impl World {
                 .iter()
                 .all(|monster| !range.contains(&monster.col))
                 && self.ditches.iter().all(|hole| !range.contains(&hole.col))
+                && rng.gen_bool(0.5)
             {
-                if rng.gen_bool(0.5) {
-                    if rng.gen_bool(level.prob_ditch_one) {
-                        self.ditches.push(Ditch::new(cols, 0));
-                    } else if rng.gen_bool(level.prob_ditch_two) {
-                        self.ditches.push(Ditch::new(cols, 0));
-                        self.ditches.push(Ditch::new(cols + 1, 0));
-                    } else if rng.gen_bool(level.prob_ditch_three) {
-                        self.ditches.push(Ditch::new(cols, 0));
-                        self.ditches.push(Ditch::new(cols + 1, 0));
-                        self.ditches.push(Ditch::new(cols + 2, 0));
-                    } else if rng.gen_bool(level.prob_monster) {
-                        self.monsters.push(Monster::new(cols, rows - 4));
-                    } else if rng.gen_bool(level.prob_monster_jumping) {
-                        self.monsters.push(Monster::jumping(cols, rows - 4));
-                    }
+                if rng.gen_bool(level.prob_ditch_one) {
+                    self.ditches.push(Ditch::new(cols, 0));
+                } else if rng.gen_bool(level.prob_ditch_two) {
+                    self.ditches.push(Ditch::new(cols, 0));
+                    self.ditches.push(Ditch::new(cols + 1, 0));
+                } else if rng.gen_bool(level.prob_ditch_three) {
+                    self.ditches.push(Ditch::new(cols, 0));
+                    self.ditches.push(Ditch::new(cols + 1, 0));
+                    self.ditches.push(Ditch::new(cols + 2, 0));
+                } else if rng.gen_bool(level.prob_monster) {
+                    self.monsters.push(Monster::new(cols, rows - 4));
+                } else if rng.gen_bool(level.prob_monster_jumping) {
+                    self.monsters.push(Monster::jumping(cols, rows - 4));
                 }
             }
             if rng.gen_bool(0.02) {
