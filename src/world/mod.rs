@@ -6,14 +6,14 @@ use rand::Rng;
 
 mod background;
 mod bullet;
-mod ditch;
+mod crater;
 mod monster;
 mod rover;
 
 use crate::config;
 use background::Background;
 use bullet::Bullet;
-use ditch::Ditch;
+use crater::Crater;
 use monster::Monster;
 use rover::Rover;
 
@@ -24,7 +24,7 @@ pub struct World {
     pub rover: Rover,
     pub bullets: Vec<Bullet>,
     pub monsters: Vec<Monster>,
-    pub ditches: Vec<Ditch>,
+    pub craters: Vec<Crater>,
     pub backgrounds: Vec<Background>,
 }
 
@@ -54,8 +54,8 @@ impl World {
             .retain(|bullet| !bulletremovals.contains(&bullet.col));
 
         if self.rover.moving() {
-            self.ditches.iter_mut().for_each(|hole| hole.col -= 1);
-            self.ditches.retain(|hole| hole.col > 0);
+            self.craters.iter_mut().for_each(|hole| hole.col -= 1);
+            self.craters.retain(|hole| hole.col > 0);
             self.monsters
                 .iter_mut()
                 .for_each(|monster| monster.col -= 1);
@@ -74,18 +74,18 @@ impl World {
                 .monsters
                 .iter()
                 .all(|monster| !range.contains(&monster.col))
-                && self.ditches.iter().all(|hole| !range.contains(&hole.col))
+                && self.craters.iter().all(|hole| !range.contains(&hole.col))
                 && rng.gen_bool(0.5)
             {
-                if rng.gen_bool(level.prob_ditch_one) {
-                    self.ditches.push(Ditch::new(cols, 0));
-                } else if rng.gen_bool(level.prob_ditch_two) {
-                    self.ditches.push(Ditch::new(cols, 0));
-                    self.ditches.push(Ditch::new(cols + 1, 0));
-                } else if rng.gen_bool(level.prob_ditch_three) {
-                    self.ditches.push(Ditch::new(cols, 0));
-                    self.ditches.push(Ditch::new(cols + 1, 0));
-                    self.ditches.push(Ditch::new(cols + 2, 0));
+                if rng.gen_bool(level.prob_crater_one) {
+                    self.craters.push(Crater::new(cols, 0));
+                } else if rng.gen_bool(level.prob_crater_two) {
+                    self.craters.push(Crater::new(cols, 0));
+                    self.craters.push(Crater::new(cols + 1, 0));
+                } else if rng.gen_bool(level.prob_crater_three) {
+                    self.craters.push(Crater::new(cols, 0));
+                    self.craters.push(Crater::new(cols + 1, 0));
+                    self.craters.push(Crater::new(cols + 2, 0));
                 } else if rng.gen_bool(level.prob_monster) {
                     self.monsters.push(Monster::new(cols, rows - 4));
                 } else if rng.gen_bool(level.prob_monster_jumping) {
@@ -101,7 +101,7 @@ impl World {
     }
 
     pub fn reset(&mut self) {
-        self.ditches.clear();
+        self.craters.clear();
         self.monsters.clear();
     }
 }

@@ -73,7 +73,7 @@ fn main() -> io::Result<()> {
         if ctx.world.rover.moving() {
             if ctx
                 .world
-                .ditches
+                .craters
                 .iter()
                 .any(|hole| hole.col == ctx.world.rover.col)
             {
@@ -81,7 +81,7 @@ fn main() -> io::Result<()> {
             }
             if ctx
                 .world
-                .ditches
+                .craters
                 .iter()
                 .any(|hole| ctx.world.rover.range().contains(&hole.col))
                 && !ctx.world.rover.jumping()

@@ -29,9 +29,9 @@ pub enum Color {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct Level {
-    pub prob_ditch_one: f64,
-    pub prob_ditch_two: f64,
-    pub prob_ditch_three: f64,
+    pub prob_crater_one: f64,
+    pub prob_crater_two: f64,
+    pub prob_crater_three: f64,
     pub prob_monster: f64,
     pub prob_monster_jumping: f64,
     pub points: u16,
@@ -42,9 +42,9 @@ impl Default for Level {
     fn default() -> Self {
         // make random
         Level {
-            prob_ditch_one: 0.2,
-            prob_ditch_two: 0.0,
-            prob_ditch_three: 0.0,
+            prob_crater_one: 0.2,
+            prob_crater_two: 0.0,
+            prob_crater_three: 0.0,
             prob_monster: 0.0,
             prob_monster_jumping: 0.0,
             points: 100,
@@ -57,9 +57,9 @@ impl Level {
     pub fn random() -> Self {
         let mut rng = rand::thread_rng();
         Level {
-            prob_ditch_one: rng.gen_range(0.0..0.5),
-            prob_ditch_two: rng.gen_range(0.0..0.6),
-            prob_ditch_three: rng.gen_range(0.0..0.7),
+            prob_crater_one: rng.gen_range(0.0..0.5),
+            prob_crater_two: rng.gen_range(0.0..0.6),
+            prob_crater_three: rng.gen_range(0.0..0.7),
             prob_monster: rng.gen_range(0.0..0.8),
             prob_monster_jumping: rng.gen_range(0.0..0.9),
             points: rng.gen_range(20..60),
@@ -89,26 +89,26 @@ impl Default for Config {
     fn default() -> Self {
         let l0 = Level::default();
         let l1 = Level {
-            prob_ditch_two: 0.2,
+            prob_crater_two: 0.2,
             desc: String::from("In level one the craters are a bit wider!"),
             ..Default::default()
         };
         let l2 = Level {
-            prob_ditch_two: 0.2,
-            prob_ditch_three: 0.2,
+            prob_crater_two: 0.2,
+            prob_crater_three: 0.2,
             desc: String::from("In level two the craters can be three wide!"),
             ..Default::default()
         };
         let l3 = Level {
-            prob_ditch_two: 0.2,
-            prob_ditch_three: 0.2,
+            prob_crater_two: 0.2,
+            prob_crater_three: 0.2,
             prob_monster: 0.2,
             desc: String::from("Oh now! There might be monsters. Shoot them!"),
             ..Default::default()
         };
         let l4 = Level {
-            prob_ditch_two: 0.2,
-            prob_ditch_three: 0.2,
+            prob_crater_two: 0.2,
+            prob_crater_three: 0.2,
             prob_monster: 0.2,
             prob_monster_jumping: 0.2,
             desc: String::from("Some monsters are jumping to evade the bullets!"),

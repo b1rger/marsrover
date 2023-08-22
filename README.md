@@ -11,7 +11,7 @@ SPDX-License-Identifier: MIT
 `marsrover` is a reimplementation of the venerable and well-known game
 [moon-buggy](https://github.com/seehuhn/moon-buggy). The idea of the game is
 that you drive a small vehicle over a surface and you have to cope with
-obstacles, first there are small ditches you have to jump over (using `Space`),
+obstacles, first there are small craters you have to jump over (using `Space`),
 later there are bigger ones and eventually some monsters appear, which you have
 to shoot (using `j`).
 
@@ -39,9 +39,9 @@ points).
 
 ```
 [[levels]]
-prob_ditch_one = 0.2
-prob_ditch_two = 0.0
-prob_ditch_three = 0.0
+prob_crater_one = 0.2
+prob_crater_two = 0.0
+prob_crater_three = 0.0
 prob_monster = 0.5
 points = 100
 ```

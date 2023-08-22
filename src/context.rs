@@ -72,9 +72,9 @@ impl Context {
                 .to_string();
             cols
         ];
-        for ditch in &self.world.ditches {
-            if (ditch.col as usize) < cols && (ditch.row as usize) < rows {
-                worldlines[rows - 3][ditch.col as usize] = ' '.to_string();
+        for crater in &self.world.craters {
+            if (crater.col as usize) < cols && (crater.row as usize) < rows {
+                worldlines[rows - 3][crater.col as usize] = ' '.to_string();
             }
         }
         let monsters = self

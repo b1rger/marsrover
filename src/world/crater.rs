@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: MIT
 
-pub struct Ditch {
+pub struct Crater {
     pub col: u16,
     pub row: u16,
 }
 
-impl Ditch {
+impl Crater {
     pub fn new(col: u16, row: u16) -> Self {
-        Ditch { col, row }
+        Crater { col, row }
     }
 }
