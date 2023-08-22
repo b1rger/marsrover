@@ -17,7 +17,7 @@ to shoot (using `j`).
 
 <div align="center" markdown="1">
 
-![screenshot](https://raw.githubusercontent.com/b1rger/marsrover/main/data/screenshot1.png)
+![screenshot](https://raw.githubusercontent.com/b1rger/marsrover/main/data/marsrover.gif)
 
 </div>
 
