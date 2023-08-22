@@ -141,7 +141,7 @@ fn main() -> io::Result<()> {
 
         // print messages, if any
         ctx.messages.retain(|message| message.tick > 0);
-        for (index, mut message) in ctx.messages.iter_mut().rev().enumerate() {
+        for (index, message) in ctx.messages.iter_mut().rev().enumerate() {
             message.tick -= 1;
             let pos: u16 = rows - 20 - index as u16;
             if message.tick > 0 {
